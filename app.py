@@ -11,6 +11,7 @@ st.set_page_config(
 )
 
 st.title("🏦 European Banking Customer Segmentation & Churn Analytics")
+st.warning("⚠️ **Executive Insight:** Customers in Germany exhibit double the attrition rate (32.4%) compared to France and Spain, with inactive members accounting for the largest total capital at risk.")
 st.markdown("---")
 
 # Load Data
