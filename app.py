@@ -34,6 +34,14 @@ except Exception as e:
 
 # Sidebar Filters
 st.sidebar.header("🔍 Global Segment Filters")
+min_balance = st.sidebar.slider(
+    "Minimum Balance (€)", 
+    min_value=0, 
+    max_value=250000, 
+    value=0, 
+    step=10000,
+    help="Filter data to include only customers with an account balance above this amount."
+)
 
 selected_geo = st.sidebar.multiselect(
     "Geography", 
@@ -57,7 +65,8 @@ selected_age = st.sidebar.multiselect(
 df = df_raw[
     (df_raw['Geography'].isin(selected_geo)) &
     (df_raw['Gender'].isin(selected_gender)) &
-    (df_raw['AgeGroup'].isin(selected_age))
+    (df_raw['AgeGroup'].isin(selected_age)) &
+    (df_raw['Balance'] >= min_balance)
 ]
 
 # Calculate KPIs
