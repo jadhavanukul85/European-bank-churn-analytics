@@ -87,6 +87,7 @@ with tab1:
     st.subheader("Geographic & Demographic Attrition Patterns")
     c1, c2 = st.columns(2)
     
+    # 1. Geographic Churn Chart
     geo_churn = df.groupby('Geography')['Exited'].mean().reset_index()
     geo_churn['ChurnRate'] = geo_churn['Exited'] * 100
     fig_geo = px.bar(
@@ -95,10 +96,13 @@ with tab1:
         y='ChurnRate', 
         color='Geography',
         title="Churn Rate (%) by Country",
-        text_auto='.1f'
+        text_auto='.1f',
+        labels={'ChurnRate': 'Churn Rate (%)', 'Geography': 'Country'}
     )
+    fig_geo.update_layout(showlegend=False, yaxis_title="Churn Rate (%)")
     c1.plotly_chart(fig_geo, use_container_width=True)
     
+    # 2. Age & Gender Churn Chart
     age_churn = df.groupby(['AgeGroup', 'Gender'])['Exited'].mean().reset_index()
     age_churn['ChurnRate'] = age_churn['Exited'] * 100
     fig_age = px.bar(
@@ -107,32 +111,47 @@ with tab1:
         y='ChurnRate', 
         color='Gender', 
         barmode='group',
-        title="Churn Rate by Age Group & Gender (%)"
+        text_auto='.1f',
+        title="Churn Rate by Age Group & Gender (%)",
+        labels={'ChurnRate': 'Churn Rate (%)', 'AgeGroup': 'Age Bracket'}
     )
+    fig_age.update_layout(yaxis_title="Churn Rate (%)")
     c2.plotly_chart(fig_age, use_container_width=True)
 
 with tab2:
     st.subheader("Financial Profile & Product Engagement Risk")
     c1, c2 = st.columns(2)
     
+    # 3. Product Engagement Chart
     prod_churn = df.groupby('NumOfProducts')['Exited'].mean().reset_index()
     prod_churn['ChurnRate'] = prod_churn['Exited'] * 100
+    prod_churn['NumOfProducts'] = prod_churn['NumOfProducts'].astype(str) # Treat as discrete category
+    
     fig_prod = px.bar(
         prod_churn, 
         x='NumOfProducts', 
         y='ChurnRate', 
         title="Churn Rate (%) by Number of Bank Products",
-        text_auto='.1f'
+        text_auto='.1f',
+        labels={'ChurnRate': 'Churn Rate (%)', 'NumOfProducts': 'Number of Products'}
     )
+    fig_prod.update_layout(yaxis_title="Churn Rate (%)")
     c1.plotly_chart(fig_prod, use_container_width=True)
     
+    # 4. Salary vs Balance Scatter Plot
+    # Convert Exited to readable labels for a clean legend
+    df_scatter = df.copy()
+    df_scatter['Status'] = df_scatter['Exited'].map({0: 'Retained', 1: 'Churned'})
+    
     fig_scatter = px.scatter(
-        df, 
+        df_scatter, 
         x='EstimatedSalary', 
         y='Balance', 
-        color='Exited',
-        color_continuous_scale=['#2ecc71', '#e74c3c'],
-        title="Salary vs. Balance Distribution (Red = Churned)"
+        color='Status',
+        color_discrete_map={'Retained': '#2ecc71', 'Churned': '#e74c3c'},
+        title="Salary vs. Balance Distribution",
+        labels={'EstimatedSalary': 'Estimated Salary (€)', 'Balance': 'Account Balance (€)'},
+        opacity=0.7
     )
     c2.plotly_chart(fig_scatter, use_container_width=True)
 
