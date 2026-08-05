@@ -12,6 +12,13 @@ st.set_page_config(
 
 st.title("🏦 European Banking Customer Segmentation & Churn Analytics")
 st.warning("⚠️ **Executive Insight:** Customers in Germany exhibit double the attrition rate (32.4%) compared to France and Spain, with inactive members accounting for the largest total capital at risk.")
+with st.expander("📖 View Key Terms & Analytics Methodology"):
+    st.markdown("""
+    * **High-Value Customer:** Account holders maintaining an active balance exceeding **€100,000**.
+    * **Capital at Risk:** Total sum of remaining account balances across all churned customers within the selected filter.
+    * **Active Member:** Customers who actively transact or utilize online banking services (recorded via `IsActiveMember`).
+    * **Churn / Attrition:** Customers who officially closed their bank accounts (`Exited = 1`).
+    """)
 st.markdown("---")
 
 # Load Data
