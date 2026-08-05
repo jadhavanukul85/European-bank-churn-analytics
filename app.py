@@ -57,11 +57,21 @@ kpis = calculate_kpis(df)
 
 # Top KPI Metric Banner
 col1, col2, col3, col4, col5 = st.columns(5)
-col1.metric("Total Customers", f"{kpis['total_customers']:,}")
-col2.metric("Overall Churn Rate", f"{kpis['overall_churn_rate']:.1f}%")
-col3.metric("High-Value Churn Rate", f"{kpis['high_value_churn_rate']:.1f}%")
-col4.metric("Inactive Member Churn", f"{kpis['inactive_churn_rate']:.1f}%")
-col5.metric("Capital at Risk (€)", f"€{kpis['total_churned_balance']:,.0f}")
+
+with col1:
+    st.metric("Total Customers", f"{total_customers:,}", help="Total number of bank account holders analyzed.")
+
+with col2:
+    st.metric("Overall Churn Rate", f"{overall_churn_rate:.1f}%", help="Percentage of total customers who left the bank.")
+
+with col3:
+    st.metric("High-Value Churn Rate", f"{hv_churn_rate:.1f}%", help="Churn rate for customers with balance > €100k.")
+
+with col4:
+    st.metric("Inactive Member Churn", f"{inactive_churn_rate:.1f}%", help="Churn rate among inactive accounts.")
+
+with col5:
+    st.metric("Capital at Risk (€)", f"€{capital_at_risk:,.0f}", help="Total account balance lost to high-value customer churn.")
 
 st.markdown("---")
 
