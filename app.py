@@ -138,4 +138,28 @@ with tab2:
 
 with tab3:
     st.subheader("Filtered Customer-Level Drill-down")
-    st.dataframe(df[['CustomerId', 'Geography', 'Gender', 'Age', 'Balance', 'NumOfProducts', 'IsActiveMember', 'Exited']])
+    
+    # Selected columns to display
+    display_df = df[['CustomerId', 'Geography', 'Gender', 'Age', 'Balance', 'NumOfProducts', 'IsActiveMember', 'Exited']]
+    
+    # Interactive Data Table with Formatted Columns
+    st.dataframe(
+        display_df,
+        use_container_width=True,
+        hide_index=True,
+        column_config={
+            "Balance": st.column_config.NumberColumn("Balance (€)", format="€%d"),
+            "IsActiveMember": st.column_config.CheckboxColumn("Active Member?"),
+            "Exited": st.column_config.CheckboxColumn("Churned?"),
+        }
+    )
+
+    # Export Data CSV Button
+    csv_data = display_df.to_csv(index=False).encode('utf-8')
+    st.download_button(
+        label="📥 Export Filtered Customer Data (CSV)",
+        data=csv_data,
+        file_name="filtered_customer_churn_data.csv",
+        mime="text/csv",
+        help="Click to download the currently filtered dataset as a CSV file."
+    )
