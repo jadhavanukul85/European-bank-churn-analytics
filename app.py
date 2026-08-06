@@ -80,6 +80,29 @@ st.sidebar.caption(f"**Total Records:** {len(df_raw):,} customers")
 st.sidebar.caption(f"**Filtered Output:** {len(df):,} customers")
 st.sidebar.caption("**Data Source:** European Banking Group")
 
+# What-If Retention Simulator
+st.sidebar.divider()
+st.sidebar.markdown("### 💡 Retention Simulator")
+
+target_retention = st.sidebar.slider(
+    "Target Retention (%)", 
+    min_value=5, 
+    max_value=50, 
+    value=10, 
+    step=5,
+    help="Simulate saving a percentage of currently churned customers."
+)
+
+churned_df = df[df['Exited'] == 1]
+if len(churned_df) > 0:
+    avg_balance = churned_df['Balance'].mean()
+    churned_count = len(churned_df)
+    saved_customers = int(churned_count * (target_retention / 100))
+    saved_capital = saved_customers * avg_balance
+    st.sidebar.success(f"**Saved Capital:** €{saved_capital:,.0f}\n\n({saved_customers:,} customers saved)")
+else:
+    st.sidebar.info("No churned customers in selected filter.")
+
 # Calculate KPIs
 kpis = calculate_kpis(df)
 
