@@ -34,6 +34,8 @@ except Exception as e:
 
 # Sidebar Filters
 st.sidebar.header("🔍 Global Segment Filters")
+if st.sidebar.button("🔄 Reset All Filters", use_container_width=True):
+    st.rerun()
 min_balance = st.sidebar.slider(
     "Minimum Balance (€)", 
     min_value=0, 
