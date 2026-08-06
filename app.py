@@ -36,6 +36,12 @@ except Exception as e:
 st.sidebar.header("🔍 Global Segment Filters")
 if st.sidebar.button("🔄 Reset All Filters", use_container_width=True):
     st.rerun()
+    st.sidebar.divider()
+st.sidebar.markdown("### 📊 Dataset Overview")
+st.sidebar.caption(f"**Total Records:** {len(df_raw):,} customers")
+st.sidebar.caption(f"**Filtered Output:** {len(df):,} customers")
+st.sidebar.caption("**Data Source:** European Banking Group")
+
 min_balance = st.sidebar.slider(
     "Minimum Balance (€)", 
     min_value=0, 
@@ -44,11 +50,6 @@ min_balance = st.sidebar.slider(
     step=10000,
     help="Filter data to include only customers with an account balance above this amount."
 )
-st.sidebar.divider()
-st.sidebar.markdown("### 📊 Dataset Overview")
-st.sidebar.caption(f"**Total Records:** {len(df_raw):,} customers")
-st.sidebar.caption(f"**Filtered Output:** {len(df):,} customers")
-st.sidebar.caption("**Data Source:** European Banking Group")
 
 selected_geo = st.sidebar.multiselect(
     "Geography", 
