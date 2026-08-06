@@ -34,8 +34,10 @@ except Exception as e:
 
 # Sidebar Filters
 st.sidebar.header("🔍 Global Segment Filters")
+
 if st.sidebar.button("🔄 Reset All Filters", use_container_width=True):
     st.rerun()
+
 min_balance = st.sidebar.slider(
     "Minimum Balance (€)", 
     min_value=0, 
@@ -63,18 +65,20 @@ selected_age = st.sidebar.multiselect(
     default=['<30', '30–45', '46–60', '60+']
 )
 
-# Apply Filters
+# 1. Apply Filters First (Creates the 'df' variable)
 df = df_raw[
-    st.sidebar.divider()
-st.sidebar.markdown("### 📊 Dataset Overview")
-st.sidebar.caption(f"**Total Records:** {len(df_raw):,} customers")
-st.sidebar.caption(f"**Filtered Output:** {len(df):,} customers")
-st.sidebar.caption("**Data Source:** European Banking Group")
     (df_raw['Geography'].isin(selected_geo)) &
     (df_raw['Gender'].isin(selected_gender)) &
     (df_raw['AgeGroup'].isin(selected_age)) &
     (df_raw['Balance'] >= min_balance)
 ]
+
+# 2. Dataset Overview Sidebar Card (Placed AFTER 'df' is created)
+st.sidebar.divider()
+st.sidebar.markdown("### 📊 Dataset Overview")
+st.sidebar.caption(f"**Total Records:** {len(df_raw):,} customers")
+st.sidebar.caption(f"**Filtered Output:** {len(df):,} customers")
+st.sidebar.caption("**Data Source:** European Banking Group")
 
 # Calculate KPIs
 kpis = calculate_kpis(df)
