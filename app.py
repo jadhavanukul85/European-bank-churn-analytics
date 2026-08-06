@@ -43,6 +43,11 @@ min_balance = st.sidebar.slider(
     value=0, 
     step=10000,
     help="Filter data to include only customers with an account balance above this amount."
+st.sidebar.divider()
+st.sidebar.markdown("### 📊 Dataset Overview")
+st.sidebar.caption(f"**Total Records:** {len(df_raw):,} customers")
+st.sidebar.caption(f"**Filtered Output:** {len(df):,} customers")
+st.sidebar.caption("**Data Source:** European Banking Group")
 )
 
 selected_geo = st.sidebar.multiselect(
