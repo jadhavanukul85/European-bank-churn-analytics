@@ -36,11 +36,6 @@ except Exception as e:
 st.sidebar.header("🔍 Global Segment Filters")
 if st.sidebar.button("🔄 Reset All Filters", use_container_width=True):
     st.rerun()
-st.sidebar.divider()
-st.sidebar.markdown("### 📊 Dataset Overview")
-st.sidebar.caption(f"**Total Records:** {len(df_raw):,} customers")
-st.sidebar.caption(f"**Filtered Output:** {len(df):,} customers")
-st.sidebar.caption("**Data Source:** European Banking Group")
 min_balance = st.sidebar.slider(
     "Minimum Balance (€)", 
     min_value=0, 
@@ -74,6 +69,11 @@ df = df_raw[
     (df_raw['Gender'].isin(selected_gender)) &
     (df_raw['AgeGroup'].isin(selected_age)) &
     (df_raw['Balance'] >= min_balance)
+st.sidebar.divider()
+st.sidebar.markdown("### 📊 Dataset Overview")
+st.sidebar.caption(f"**Total Records:** {len(df_raw):,} customers")
+st.sidebar.caption(f"**Filtered Output:** {len(df):,} customers")
+st.sidebar.caption("**Data Source:** European Banking Group")
 ]
 
 # Calculate KPIs
