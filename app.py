@@ -65,15 +65,15 @@ selected_age = st.sidebar.multiselect(
 
 # Apply Filters
 df = df_raw[
-    (df_raw['Geography'].isin(selected_geo)) &
-    (df_raw['Gender'].isin(selected_gender)) &
-    (df_raw['AgeGroup'].isin(selected_age)) &
-    (df_raw['Balance'] >= min_balance)
-st.sidebar.divider()
+    st.sidebar.divider()
 st.sidebar.markdown("### 📊 Dataset Overview")
 st.sidebar.caption(f"**Total Records:** {len(df_raw):,} customers")
 st.sidebar.caption(f"**Filtered Output:** {len(df):,} customers")
 st.sidebar.caption("**Data Source:** European Banking Group")
+    (df_raw['Geography'].isin(selected_geo)) &
+    (df_raw['Gender'].isin(selected_gender)) &
+    (df_raw['AgeGroup'].isin(selected_age)) &
+    (df_raw['Balance'] >= min_balance)
 ]
 
 # Calculate KPIs
