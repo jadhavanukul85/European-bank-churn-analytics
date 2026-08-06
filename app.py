@@ -9,6 +9,103 @@ st.set_page_config(
     page_icon="🏦",
     layout="wide"
 )
+# Gen Z Modern Executive Theme (Dark Indigo, Cyan & Violet Accent Glassmorphism)
+st.markdown("""
+<style>
+    /* Main Background: Deep Indigo/Midnight Blue Mesh Gradient */
+    .stApp {
+        background: radial-gradient(circle at 10% 20%, #111827 0%, #0f0a1e 50%, #030014 100%);
+        color: #f3f4f6;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    /* Sidebar: Elevated Slate/Violet Container */
+    section[data-testid="stSidebar"] {
+        background-color: rgba(13, 11, 26, 0.9) !important;
+        border-right: 1px solid rgba(139, 92, 246, 0.15);
+    }
+
+    /* Glassmorphism Metric Cards with Gradient Accent Line */
+    div[data-testid="stMetric"] {
+        background: rgba(22, 19, 43, 0.65);
+        border: 1px solid rgba(139, 92, 246, 0.25);
+        padding: 20px;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Hover Effect on Metric Cards */
+    div[data-testid="stMetric"]:hover {
+        transform: translateY(-4px);
+        border-color: #38bdf8;
+        box-shadow: 0 12px 30px rgba(56, 189, 248, 0.25);
+    }
+
+    /* Custom Gradient Accent Line at Top of Metric Cards */
+    div[data-testid="stMetric"]::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #a855f7, #38bdf8, #34d399);
+    }
+
+    /* Metric Values Color */
+    div[data-testid="stMetricValue"] {
+        color: #38bdf8 !important;
+        font-weight: 700;
+    }
+
+    /* Tabs Styling */
+    button[data-baseweb="tab"] {
+        background-color: transparent !important;
+        color: #9ca3af !important;
+        font-weight: 600;
+        border-radius: 8px;
+        padding: 8px 16px;
+        transition: all 0.2s ease;
+    }
+
+    button[aria-selected="true"] {
+        color: #f3f4f6 !important;
+        background: rgba(139, 92, 246, 0.2) !important;
+        border-bottom: 2px solid #a855f7 !important;
+    }
+
+    /* Expander Container */
+    div[data-testid="stExpander"] {
+        background: rgba(22, 19, 43, 0.5);
+        border: 1px solid rgba(139, 92, 246, 0.2);
+        border-radius: 12px;
+    }
+
+    /* Buttons: Electric Purple/Blue Gradient */
+    div.stButton > button, div.stDownloadButton > button {
+        background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        color: #ffffff;
+        border-radius: 10px;
+        border: none;
+        padding: 10px 22px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+        transition: all 0.3s ease;
+    }
+
+    div.stButton > button:hover, div.stDownloadButton > button:hover {
+        background: linear-gradient(135deg, #4f46e5 0%, #9333ea 100%);
+        box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5);
+        transform: translateY(-1px);
+    }
+</style>
+""", unsafe_allow_html=True)
 
 st.title("🏦 European Banking Customer Segmentation & Churn Analytics")
 st.warning("⚠️ **Executive Insight:** Customers in Germany exhibit double the attrition rate (32.4%) compared to France and Spain, with inactive members accounting for the largest total capital at risk.")
